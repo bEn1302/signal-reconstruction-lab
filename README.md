@@ -30,3 +30,12 @@ Dieses Projekt demonstriert die Auswirkungen verschiedener Interpolationsmethode
 
 ## Ergebnisse
 Das Programm erzeugt einen Plot, der die Rekonstruktion im Detail zeigt, und speichert drei Audiodateien ab, um die qualitativen Unterschiede direkt vergleichen zu können.
+
+- ab dem Faktor 8 d.h. eine Abtastrate von ca. 5,513 kHz wird die Sprache bei der Stufen- & Lineare-Rekonstruktion undeutlicher
+- ab dem Faktor 10 (4,41 kHz) ist die Sprache der Stufen-Rekonstruktion gerade so verständlich, Linear & Kubisch sind recht verständlich
+- ab dem Faktor 20 (2,21 kHz) ist bei der Stufenform keine Sprache mehr erkennbar, bei der Linearen nur teilweise, bei der kubischen ist noch recht verständlich
+- ab dem Faktor 50 (0,88 kHz) ist keine Sprache mehr verständlich, man hört sehr klar die unterschiede der verschiedenen Rekonstruktionen
+- ab dem Faktor 100 (0,44 kHz) hört man viele Verzerrungen
+- ab dem Faktor 1000 (0,04 kHz) ist nur noch ein "Knacken" oder "Brummen" zu hören
+
+
