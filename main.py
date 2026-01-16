@@ -49,6 +49,7 @@ def main():
     # Darstellen
     if show_plots == "y":
         plots.plot_results(t, x, t_samp, x_samp, reconstructions)
+        plots.error_analysis(t, x, t_samp, x_samp, reconstructions)
 
         for f in [5, 50, 500, 2000, 5000]:
             # Verarbeiten

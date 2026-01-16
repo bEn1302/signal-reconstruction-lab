@@ -75,7 +75,7 @@ def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
     plt.grid(True, alpha=0.3)
 
 
-# --- Entwicklung x(f) mit geringerer Abtastung (Faktor = 10,100,1000)
+# --- Entwicklung x(f) mit geringerer Abtastung (Faktor = 1...sr)
 def plot_comparison(t_orig, recon_dict, factor):
     fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6), sharey=True)
     fig.suptitle(f"Rekonstruktions-Vergleich | Abtastfaktor: {factor}", fontsize=16)
@@ -95,4 +95,52 @@ def plot_comparison(t_orig, recon_dict, factor):
     ax3.set_xlabel("Zeit [s]")
     ax3.grid(True, alpha=0.2)
 
+    plt.tight_layout()
+
+
+def error_analysis(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(20, 6), sharey=True)
+    fig.suptitle(
+        "Detaillierte Fehleranalyse (Absoluter Fehler pro Methode)", fontsize=16
+    )
+
+    mid = len(t_samp) // 2  # Mitte der Samplerate
+    t_start, t_end = (
+        t_samp[mid],
+        t_samp[mid + zoom_samples],
+    )
+    mask = (t_orig >= t_start) & (t_orig <= t_end)
+
+    # Dictionary, um die Methoden den Achsen und Farben zuzuordnen
+    setup = {
+        "stufen": {"ax": ax1, "color": "r", "label": "Stufen"},
+        "linear": {"ax": ax2, "color": "g", "label": "Linear"},
+        "kubisch": {"ax": ax3, "color": "m", "label": "Kubisch"},
+    }
+
+    for method, config in setup.items():
+        if method in recon_dict:
+            ax = config["ax"]
+            # Fehlerberechnung nur für den maskierten Bereich
+            abs_error = np.abs(x_orig[mask] - recon_dict[method][mask])
+
+            # Plot auf der jeweiligen Achse (ax.plot statt plt.plot)
+            ax.plot(
+                t_orig[mask],
+                abs_error,
+                color=config["color"],
+                label=f"Fehler {config['label']}",
+                alpha=0.8,
+            )
+
+            # Einstellungen für jeden Subplot
+            ax.set_yscale("log")
+            ax.set_ylim(1e-8, 2)
+            ax.set_title(f"Methode: {config['label']}")
+            ax.set_xlabel("Zeit [s]")
+            ax.grid(True, which="both", ls="-", alpha=0.3)
+            ax.legend(loc="upper right")
+
+    # Y-Achsen-Beschriftung nur für den ersten Plot links
+    ax1.set_ylabel("Absoluter Fehler (Log-Skala)")
     plt.tight_layout()
