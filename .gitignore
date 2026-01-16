@@ -1,0 +1,14 @@
+# Python temporäre Dateien
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Audio-Dateien (nicht hochladen, da groß)
+*.mp3
+*.wav
+
+# IDEs
+.vscode/
+.idea/
