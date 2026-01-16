@@ -12,7 +12,7 @@ doc: https://librosa.org/doc/latest/generated/librosa.load.html#librosa.load
 def load_signal(file_path, duration=None):
     print(f"Lade Datei: {file_path}")
     x, sr = librosa.load(file_path, sr=None, mono=True, duration=duration)
-    print(f"Die Abtastrate beträgt {sr} Hz")
+    print(f"--> Die Abtastrate der Original-Datei beträgt {sr} Hz")
     return x, sr
 
 

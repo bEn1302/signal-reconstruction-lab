@@ -3,34 +3,19 @@ import numpy as np
 from scipy.interpolate import lagrange
 
 """
-
+Hier werden die Daten zum geplottet
 doc: https://matplotlib.org/stable/users/explain/quick_start.html
 """
 
 
 def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
-    # --- Plot: Gesamtansicht ---
+    # --- Plot: Gesamtansicht original Signal ---
     plt.figure(figsize=(15, 5))
     plt.plot(t_orig, x_orig, "k", alpha=0.2, label="Original")
-    plt.title("Gesamtübersicht des Signals")
+    plt.title("Gesamtübersicht des Originalsignals")
+    plt.xlabel("Zeit [s]")
+    plt.ylabel("Signal x(t)")
     plt.grid(True)
-
-    # Figur mit 1 Zeile und 3 Spalten
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
-
-    # Plot Links
-    ax1.plot(t_orig, recon_dict["stufen"], "r--", alpha=0.7, label="Stufen")
-    ax1.set_title("Stufen")
-
-    # Plot Mitte
-    ax2.plot(t_orig, recon_dict["linear"], "g--", alpha=0.7, label="Linear")
-    ax2.set_title("Linear")
-
-    # Plot Rechts
-    ax3.plot(t_orig, recon_dict["kubisch"], "m--", alpha=0.7, label="Kubisch")
-    ax3.set_title("Kubisch")
-
-    plt.tight_layout()
 
     # --- Plot: Zoom-Anischt ---
     plt.figure(figsize=(15, 8))
@@ -83,9 +68,31 @@ def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
     # Skalierung, das y-Achse beim 1,5 fachen des Minimums beginnt/ des Maximums endet
     plt.ylim(np.min(x_orig[mask]) * 1.5, np.max(x_orig[mask]) * 1.5)
 
-    plt.title("Signalrekonstruktion: Audiotiver Vergleich")
+    plt.title("Signalrekonstruktion")
     plt.xlabel("Zeit [s]")
-    plt.ylabel("Signal x(t)")
+    plt.ylabel("Signal x(k)")
     plt.legend()
     plt.grid(True, alpha=0.3)
-    plt.show()
+
+
+# --- Entwicklung x(f) mit geringerer Abtastung (Faktor = 10,100,1000)
+def plot_comparison(t_orig, recon_dict, factor):
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6), sharey=True)
+    fig.suptitle(f"Rekonstruktions-Vergleich | Abtastfaktor: {factor}", fontsize=16)
+
+    ax1.plot(t_orig, recon_dict["stufen"], "r", alpha=0.7)
+    ax1.set_title("Stufen")
+    ax1.set_xlabel("Zeit [s]")
+    ax1.grid(True, alpha=0.2)
+
+    ax2.plot(t_orig, recon_dict["linear"], "g", alpha=0.7)
+    ax2.set_title("Linear")
+    ax2.set_xlabel("Zeit [s]")
+    ax2.grid(True, alpha=0.2)
+
+    ax3.plot(t_orig, recon_dict["kubisch"], "m", alpha=0.7)
+    ax3.set_title("Kubisch")
+    ax3.set_xlabel("Zeit [s]")
+    ax3.grid(True, alpha=0.2)
+
+    plt.tight_layout()

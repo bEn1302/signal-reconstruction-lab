@@ -1,6 +1,7 @@
 import audio_io
 import signal_interpolation as sip
 import plots
+import matplotlib.pyplot as plt
 import os
 
 # Variablen
@@ -8,7 +9,7 @@ import os
 # FACTOR = 15
 
 while True:
-    input_file = input("Gib den Pfad zu deiner Datei an (z.B: AUDIO/aufname_1.mp3): ")
+    input_file = input("Gib den Pfad zu deiner Datei an (z.B: AUDIO/aufnahme_1.mp3): ")
 
     if os.path.exists(input_file):
         file_path = input_file
@@ -42,9 +43,20 @@ def main():
     x_samp, t_samp = sip.downsample_signal(x, t, factor)
     reconstructions = sip.reconstruct_signal(t_samp, x_samp, t)
 
+    sr_new = sr / factor
+    print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz")
+
     # Darstellen
     if show_plots == "y":
         plots.plot_results(t, x, t_samp, x_samp, reconstructions)
+
+        for f in [5, 50, 500, 2000, 5000]:
+            # Verarbeiten
+            x_samp, t_samp = sip.downsample_signal(x, t, f)
+            reconstructions = sip.reconstruct_signal(t_samp, x_samp, t)
+            plots.plot_comparison(t, reconstructions, f)
+
+        plt.show()
 
     # Speichern
     audio_io.save_signal("out_stufen.wav", reconstructions["stufen"], sr)
