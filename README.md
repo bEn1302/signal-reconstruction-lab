@@ -22,8 +22,8 @@ Dieses Projekt demonstriert die Auswirkungen verschiedener Interpolationsmethode
     pip install -r requirements.txt
 
 ## Benutzung
-1. Speichere die MP3-Datei (z.B. `aufnahme.mp3`) im Ordner AUDIO
-2. Passe den Dateinamen in der `main.py` an
+1. Speichere die MP3-Datei (z.B. `aufnahme.mp3`) im Programmordner
+2. Passe den Dateinamen und -pfad in der `main.py` an
 3. Starte das Programm: 
     ```bash
     python main.py
