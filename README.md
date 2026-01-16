@@ -14,7 +14,7 @@ Dieses Projekt demonstriert die Auswirkungen verschiedener Interpolationsmethode
 ## Installation
 1. Repositiory klonen:
    ```bash
-   git clone [https://github.com/DEIN_NUTZERNAME/signal-reconstruction-lab.git](https://github.com/DEIN_NUTZERNAME/signal-reconstruction-lab.git)
+   git clone [https://github.com/bEn1302/signal-reconstruction-lab.git](https://github.com/bEn1302/signal-reconstruction-lab.git)
    cd signal-reconstruction-lab
 
 2. Packete installieren
