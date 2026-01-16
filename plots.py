@@ -9,6 +9,30 @@ doc: https://matplotlib.org/stable/users/explain/quick_start.html
 
 
 def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
+    # --- Plot: Gesamtansicht ---
+    plt.figure(figsize=(15, 5))
+    plt.plot(t_orig, x_orig, "k", alpha=0.2, label="Original")
+    plt.title("Gesamtübersicht des Signals")
+    plt.grid(True)
+
+    # Figur mit 1 Zeile und 3 Spalten
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
+
+    # Plot Links
+    ax1.plot(t_orig, recon_dict["stufen"], "r--", alpha=0.7, label="Stufen")
+    ax1.set_title("Stufen")
+
+    # Plot Mitte
+    ax2.plot(t_orig, recon_dict["linear"], "g--", alpha=0.7, label="Linear")
+    ax2.set_title("Linear")
+
+    # Plot Rechts
+    ax3.plot(t_orig, recon_dict["kubisch"], "m--", alpha=0.7, label="Kubisch")
+    ax3.set_title("Kubisch")
+
+    plt.tight_layout()
+
+    # --- Plot: Zoom-Anischt ---
     plt.figure(figsize=(15, 8))
 
     # Zoom Bereich festlegen
@@ -34,6 +58,7 @@ def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
     # Rekonstruktion
     plt.plot(t_orig[mask], recon_dict["stufen"][mask], "r--", label="1) Stufen")
     plt.plot(t_orig[mask], recon_dict["linear"][mask], "g--", label="2) Linear")
+    plt.plot(t_orig[mask], recon_dict["kubisch"][mask], "m--", label="3) Kubisch")
 
     # Echte Lagrange Berechnung nur für den Aussschnitt
     try:
@@ -49,7 +74,7 @@ def plot_results(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
         y_poly = poly_lagrange(t_poly - t_start)
 
         plt.plot(
-            t_poly, y_poly, "b:", label=f"3) Lagrange (lokal) {n_points-1}. Ordnung"
+            t_poly, y_poly, "b:", label=f"4) Lagrange (lokal) {n_points-1}. Ordnung"
         )
 
     except Exception as e:

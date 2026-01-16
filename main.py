@@ -1,23 +1,50 @@
 import audio_io
 import signal_interpolation as sip
 import plots
+import os
 
 # Variablen
-FILE = "AUDIO/aufnahme_1.mp3"
-FACTOR = 15
+# FILE = "AUDIO/aufnahme_1.mp3"
+# FACTOR = 15
+
+while True:
+    input_file = input("Gib den Pfad zu deiner Datei an (z.B: AUDIO/aufname_1.mp3): ")
+
+    if os.path.exists(input_file):
+        file_path = input_file
+        break
+    else:
+        print(f"Die Datei '{input_file}' wurde nicht gefunden.")
+
+try:
+    factor = int(
+        input("Jeder wievielte Wert soll genommen werden? (Faktor, z.B. 10): ")
+    )  # 15-20 gut
+    if factor < 1:
+        print("Faktor muss mindestens 1 sein. Setze Faktor auf 1.")
+        factor = 1
+except ValueError:
+    print("Ungültige Eingabe (keine Zahl). Faktor auf Standardwert 15 gesetzt.")
+    factor = 15
+
+try:
+    show_plots = input("Möchtest du eine grafische Visualisierung? (y/n): ")
+except ValueError:
+    print("Ungültige Eingabe, keine Visualisierung")
 
 
 def main():
     # Daten aus Datei laden
-    x, sr = audio_io.load_signal(FILE, duration=20)
+    x, sr = audio_io.load_signal(input_file, duration=20)
     t = audio_io.get_time_axis(x, sr)
 
     # Verarbeiten
-    x_samp, t_samp = sip.downsample_signal(x, t, FACTOR)
+    x_samp, t_samp = sip.downsample_signal(x, t, factor)
     reconstructions = sip.reconstruct_signal(t_samp, x_samp, t)
 
     # Darstellen
-    plots.plot_results(t, x, t_samp, x_samp, reconstructions)
+    if show_plots == "y":
+        plots.plot_results(t, x, t_samp, x_samp, reconstructions)
 
     # Speichern
     audio_io.save_signal("out_stufen.wav", reconstructions["stufen"], sr)
@@ -27,3 +54,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
+    Ergebnisse beim Ausprobieren (interessante Werte):
+    - Unterscheid Erkennbar ab Faktor :
+"""
