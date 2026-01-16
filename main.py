@@ -46,6 +46,11 @@ def main():
     sr_new = sr / factor
     print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz")
 
+    # Speichern
+    audio_io.save_signal("out_stufen.wav", reconstructions["stufen"], sr)
+    audio_io.save_signal("out_linear.wav", reconstructions["linear"], sr)
+    audio_io.save_signal("out_kubisch.wav", reconstructions["kubisch"], sr)
+
     # Darstellen
     if show_plots == "y":
         plots.plot_results(t, x, t_samp, x_samp, reconstructions)
@@ -58,11 +63,6 @@ def main():
             plots.plot_comparison(t, reconstructions, f)
 
         plt.show()
-
-    # Speichern
-    audio_io.save_signal("out_stufen.wav", reconstructions["stufen"], sr)
-    audio_io.save_signal("out_linear.wav", reconstructions["linear"], sr)
-    audio_io.save_signal("out_kubisch.wav", reconstructions["kubisch"], sr)
 
 
 if __name__ == "__main__":
