@@ -7,6 +7,10 @@ Hier werden die Daten geplottet
 doc: https://matplotlib.org/stable/users/explain/quick_start.html
 """
 
+N_POINTS = int(
+    input("Welche Ordnung soll dein Lagrange-Interpolation haben (1...20)?: ")
+)
+
 
 # Echte Lagrange Berechnung nur für den Aussschnitt
 def _calculate_local_lagrange(t_samp, x_samp, t_start, n_points, t_poly=None):
@@ -40,8 +44,8 @@ def plot_results(
     zoom_samples=20,
 ):
     # --- Plot: Gesamtansicht original Signal ---
-    fig1, ax1 = plt.subplots(figsize=(15, 5))
-    ax1.plot(t_orig, x_orig, "k", alpha=0.2, label="Original")
+    fig1, ax1 = plt.subplots(figsize=(15, 8))
+    ax1.plot(t_orig, x_orig, "k", alpha=0.5, label="Original")
     ax1.set_title("Gesamtübersicht des Originalsignals")
     ax1.set_xlabel("Zeit [s]")
     ax1.set_ylabel("Signal x(t)")
@@ -90,16 +94,13 @@ def plot_results(
             ax2.plot(t_orig[mask], recon_dict[method][mask], style, label=label)
 
     # Lagrange
-    n_points = int(
-        input("Welche Ordnung soll dein Lagrange-Interpolation haben (1...20)?")
-    )
-    t_poly, y_poly, _ = _calculate_local_lagrange(
-        t_samp[mid:], x_samp[mid:], t_start, n_points
+    t_poly, y_poly, n_points = _calculate_local_lagrange(
+        t_samp[mid:], x_samp[mid:], t_start, N_POINTS
     )
 
     if t_poly is not None:
         ax2.plot(
-            t_poly, y_poly, "b:", label=f"4) Lagrange (lokal) {n_points-1}. Ordnung"
+            t_poly, y_poly, "b:", label=f"4) Lagrange (lokal) {N_POINTS-1}. Ordnung"
         )
 
     y_min, y_max = (
@@ -112,6 +113,8 @@ def plot_results(
     ax2.set_ylabel("Signal x(k)")
     ax2.legend()
     ax2.grid(True, alpha=0.3)
+
+    return n_points
 
 
 # --- Entwicklung x(f) mit geringerer Abtastung (Faktor = 1...sr)
@@ -164,8 +167,8 @@ def error_analysis(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
             # Fehlerberechnung nur für den maskierten Bereich
 
             if method == "lagrange":
-                _, y_poly, order = _calculate_local_lagrange(
-                    t_samp[mid:], x_samp[mid:], t_start, 20, t_poly=t_orig[mask]
+                _, y_poly, _ = _calculate_local_lagrange(
+                    t_samp[mid:], x_samp[mid:], t_start, N_POINTS, t_poly=t_orig[mask]
                 )
                 abs_error = np.abs(x_orig[mask] - y_poly)
                 if y_poly is not None:
@@ -187,7 +190,7 @@ def error_analysis(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
 
             # Einstellungen für jeden Subplot
             ax.set_yscale("log")
-            ax.set_ylim(1e-8, 2)
+            ax.set_ylim(1e-16, 2)
             ax.set_title(f"Methode: {config['label']}")
             ax.set_xlabel("Zeit [s]")
             ax.grid(True, which="both", ls="-", alpha=0.3)
