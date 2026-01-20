@@ -13,6 +13,7 @@ def load_signal(file_path, duration=None):
     print(f"Lade Datei: {file_path}")
     x, sr = librosa.load(file_path, sr=None, mono=True, duration=duration)
     print(f"--> Die Abtastrate der Original-Datei beträgt {sr} Hz")
+    print(f"--> Somit ist die Grenzfrequenz f_g < {round(sr/2,2)} Hz\n")
     return x, sr
 
 

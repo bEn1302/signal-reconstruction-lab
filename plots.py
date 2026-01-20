@@ -7,9 +7,7 @@ Hier werden die Daten geplottet
 doc: https://matplotlib.org/stable/users/explain/quick_start.html
 """
 
-N_POINTS = int(
-    input("Welche Ordnung soll dein Lagrange-Interpolation haben (1...20)?: ")
-)
+N_POINTS = 20  # int(input("Welche Ordnung soll dein Lagrange-Interpolation haben (1...20)?: "))
 
 
 # Echte Lagrange Berechnung nur für den Aussschnitt
