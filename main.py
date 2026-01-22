@@ -52,9 +52,21 @@ def main():
     print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz \n")
 
     # Speichern
-    audio_io.save_signal("AUDIO/OUTPUT/out_stufen.wav", reconstructions["stufen"], sr)
-    audio_io.save_signal("AUDIO/OUTPUT/out_linear.wav", reconstructions["linear"], sr)
-    audio_io.save_signal("AUDIO/OUTPUT/out_kubisch.wav", reconstructions["kubisch"], sr)
+    audio_io.save_signal(
+        f"AUDIO/OUTPUT/out_stufen_sr{round(sr_new)}Hz.wav",
+        reconstructions["stufen"],
+        sr,
+    )
+    audio_io.save_signal(
+        f"AUDIO/OUTPUT/out_linear._sr{round(sr_new)}Hz.wav",
+        reconstructions["linear"],
+        sr,
+    )
+    audio_io.save_signal(
+        f"AUDIO/OUTPUT/out_kubisch._sr{round(sr_new)}Hz.wav",
+        reconstructions["kubisch"],
+        sr,
+    )
 
     # Darstellen
     if show_plots:
