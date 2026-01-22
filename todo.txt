@@ -1,2 +1,1 @@
- statt librosa torchaudio 2.10.0
- --> direkt einsprechen und dann Verarbeiten und speichern
+ statt librosa --> av.audio (ffmpeg) verwenden

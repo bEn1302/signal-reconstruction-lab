@@ -3,7 +3,7 @@
 Dieses Projekt demonstriert die Auswirkungen verschiedener Interpolationsmethoden auf digitale Audiosignale. Es zeigt anschaulich, wie Signale abgetastet und auf unterschiedliche Weise mathematisch rekonstruiert werden können.
 
 ## Features
-* **Aufnahme:*** Sprachaufnahme
+* **Aufnahme:** Sprachaufnahme
 * **Abtastung:** Simulation von Downsampling an MP3-Dateien.
 * **Interpolation:** Vergleich von drei Methoden:
   1. **Stufenform**
