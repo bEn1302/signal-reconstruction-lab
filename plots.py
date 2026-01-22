@@ -188,7 +188,7 @@ def error_analysis(t_orig, x_orig, t_samp, x_samp, recon_dict, zoom_samples=20):
 
             # Einstellungen für jeden Subplot
             ax.set_yscale("log")
-            ax.set_ylim(1e-16, 2)
+            ax.set_ylim(1e-8, 2)
             ax.set_title(f"Methode: {config['label']}")
             ax.set_xlabel("Zeit [s]")
             ax.grid(True, which="both", ls="-", alpha=0.3)

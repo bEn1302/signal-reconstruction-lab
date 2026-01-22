@@ -4,16 +4,12 @@ import plots
 import matplotlib.pyplot as plt
 import os
 
-# Variablen
-# FILE = "AUDIO/aufnahme_1.mp3"
-# FACTOR = 15
-
 
 def get_user_input():
 
     while True:
         input_file = input(
-            "Gib den Pfad zu deiner Datei an (z.B: AUDIO/aufnahme_1.mp3): "
+            "Gib den Pfad zu deiner Datei an (z.B: AUDIO/INPUT/aufnahme_1.mp3): "
         )
 
         if os.path.exists(input_file):
@@ -56,9 +52,9 @@ def main():
     print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz \n")
 
     # Speichern
-    audio_io.save_signal("out_stufen.wav", reconstructions["stufen"], sr)
-    audio_io.save_signal("out_linear.wav", reconstructions["linear"], sr)
-    audio_io.save_signal("out_kubisch.wav", reconstructions["kubisch"], sr)
+    audio_io.save_signal("AUDIO/OUTPUT/out_stufen.wav", reconstructions["stufen"], sr)
+    audio_io.save_signal("AUDIO/OUTPUT/out_linear.wav", reconstructions["linear"], sr)
+    audio_io.save_signal("AUDIO/OUTPUT/out_kubisch.wav", reconstructions["kubisch"], sr)
 
     # Darstellen
     if show_plots:

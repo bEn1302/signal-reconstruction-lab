@@ -16,8 +16,11 @@ Dieses Projekt demonstriert die Auswirkungen verschiedener Interpolationsmethode
    ```bash
    git clone [https://github.com/bEn1302/signal-reconstruction-lab.git](https://github.com/bEn1302/signal-reconstruction-lab.git)
    cd signal-reconstruction-lab
-
-2. Packete installieren
+2. Virtual Enviroment erstellen und aktivieren:
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+3. Packete installieren
     ``` bash
     pip install -r requirements.txt
 

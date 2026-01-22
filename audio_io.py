@@ -2,7 +2,6 @@ import librosa
 import soundfile as sf
 import numpy as np
 
-
 """
 Lädt eine Audiodatei und gibt das Signal x und die Abtastrate (Samplerate) zurück
 doc: https://librosa.org/doc/latest/generated/librosa.load.html#librosa.load
