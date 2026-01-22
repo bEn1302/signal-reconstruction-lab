@@ -6,37 +6,6 @@ import matplotlib.pyplot as plt
 import os
 
 
-def get_user_input():
-    """
-    while True:
-        input_file = input(
-            "Gib den Pfad zu deiner Datei an (z.B: AUDIO/INPUT/aufnahme_1.mp3): "
-        )
-
-        if os.path.exists(input_file):
-            file_path = input_file
-            break
-        else:
-            print(f"Die Datei '{input_file}' wurde nicht gefunden.")
-    """
-    try:
-        factor = int(
-            input("Jeder wievielte Wert soll genommen werden? (Faktor, z.B. 10): ")
-        )  # 15-20 gut
-        if factor < 1:
-            print("Faktor muss mindestens 1 sein. Setze Faktor auf 1.")
-            factor = 1
-    except ValueError:
-        print("Ungültige Eingabe (keine Zahl). Faktor auf Standardwert 15 gesetzt.")
-        factor = 15
-
-    show_plots = (
-        input("Möchtest du eine grafische Visualisierung? (y/n): ").lower() == "y"
-    )
-
-    return factor, show_plots  # file_path,
-
-
 def main():
     # Audio aufnehmen
     audio_recorder.record_audio()
@@ -102,8 +71,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
-    Ergebnisse beim Ausprobieren (interessante Werte):
-    - Unterscheid Erkennbar ab Faktor :
-"""
