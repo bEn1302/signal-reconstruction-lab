@@ -1,1 +1,2 @@
- statt librosa --> av.audio (ffmpeg) verwenden
+- statt librosa --> av.audio (ffmpeg) verwenden
+- Lagrange "häppchenweise" alle 5 Punkte und dann zusammenführen
