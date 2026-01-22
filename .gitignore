@@ -9,6 +9,7 @@ venv/
 #*.mp3
 #*.wav
 aufnahme_1.mp3
+eigene_aufnahme.wav
 
 # IDEs
 .vscode/

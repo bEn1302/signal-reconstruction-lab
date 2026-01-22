@@ -1,3 +1,4 @@
+import audio_recorder
 import audio_io
 import signal_interpolation as sip
 import plots
@@ -6,7 +7,7 @@ import os
 
 
 def get_user_input():
-
+    """
     while True:
         input_file = input(
             "Gib den Pfad zu deiner Datei an (z.B: AUDIO/INPUT/aufnahme_1.mp3): "
@@ -17,7 +18,7 @@ def get_user_input():
             break
         else:
             print(f"Die Datei '{input_file}' wurde nicht gefunden.")
-
+    """
     try:
         factor = int(
             input("Jeder wievielte Wert soll genommen werden? (Faktor, z.B. 10): ")
@@ -33,23 +34,35 @@ def get_user_input():
         input("Möchtest du eine grafische Visualisierung? (y/n): ").lower() == "y"
     )
 
-    return file_path, factor, show_plots
+    return factor, show_plots  # file_path,
 
 
 def main():
-    # Eingabe
-    file_path, factor, show_plots = get_user_input()
+    # Audio aufnehmen
+    audio_recorder.record_audio()
 
     # Daten aus Datei laden
-    x, sr = audio_io.load_signal(file_path, duration=20)
+    x, sr = audio_io.load_signal("eigene_aufnahme.wav", duration=20)
     t = audio_io.get_time_axis(x, sr)
+
+    # Eingabe Downsampling
+    try:
+        factor = int(
+            input("Jeder wievielte Wert soll genommen werden? (Faktor, z.B. 10): ")
+        )  # 15-20 gut
+        if factor < 1:
+            print("Faktor muss mindestens 1 sein. Setze Faktor auf 1.")
+            factor = 1
+    except ValueError:
+        print("Ungültige Eingabe (keine Zahl). Faktor auf Standardwert 15 gesetzt.")
+        factor = 15
+
+    sr_new = sr / factor
+    print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz \n")
 
     # Verarbeiten
     x_samp, t_samp = sip.downsample_signal(x, t, factor)  # Downsampling
     reconstructions = sip.reconstruct_signal(t_samp, x_samp, t)  # Rekonstruktion
-
-    sr_new = sr / factor
-    print(f"--> Das entspricht einer neuen Abtastrate von {round(sr_new,2)} Hz \n")
 
     # Speichern
     audio_io.save_signal(
@@ -69,6 +82,10 @@ def main():
     )
 
     # Darstellen
+    show_plots = (
+        input("Möchtest du eine grafische Visualisierung? (y/n): ").lower() == "y"
+    )
+
     if show_plots:
         print("--> Generiere Plots...")
         plots.plot_results(t, x, t_samp, x_samp, reconstructions)
