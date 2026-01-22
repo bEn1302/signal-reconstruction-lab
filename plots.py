@@ -43,7 +43,7 @@ def plot_results(
 ):
     # --- Plot: Gesamtansicht original Signal ---
     fig1, ax1 = plt.subplots(figsize=(15, 8))
-    ax1.plot(t_orig, x_orig, "k", alpha=0.5, label="Original")
+    ax1.plot(t_orig, x_orig, "k", alpha=0.2, label="Original")
     ax1.set_title("Gesamtübersicht des Originalsignals")
     ax1.set_xlabel("Zeit [s]")
     ax1.set_ylabel("Signal x(t)")

@@ -8,8 +8,8 @@ venv/
 # Audio-Dateien (nicht hochladen, da groß)
 #*.mp3
 #*.wav
-
 aufnahme_1.mp3
+
 # IDEs
 .vscode/
 .idea/
