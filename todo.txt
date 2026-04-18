@@ -1,2 +1,9 @@
 - statt librosa --> av.audio (ffmpeg) verwenden
 - Lagrange "häppchenweise" alle 5 Punkte und dann zusammenführen
+
+Favorit:
++ av.audio aus ffmpeg-Projekt
+  apt install python3-av
+auch möglich:
+- Sprachsignalverarbeirung: tksnack der KTH Stockholm
+- Audio und maschinelles Lernen: torchaudio 
